@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#0c0b0a">
+  <title>Painel do evento</title>
+  <link rel="icon" href="/assets/icons/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="/css/reset.css">
+  <link rel="stylesheet" href="/css/variables.css">
+  <link rel="stylesheet" href="/css/admin.css">
+  <script type="module" src="/js/admin.js"></script>
+</head>
+<body class="admin">
+  <div class="admin-shell" data-admin-shell hidden>
+    <header class="admin-header">
+      <div>
+        <p class="admin-eyebrow">Painel do evento</p>
+        <h1 class="admin-title" data-admin-event-name>—</h1>
+      </div>
+      <nav class="admin-header__actions" aria-label="Ações da conta">
+        <a class="btn-admin btn-admin--quiet" href="/" target="_blank" rel="noopener">Ver convite</a>
+        <button class="btn-admin btn-admin--quiet" type="button" data-logout>Sair</button>
+      </nav>
+    </header>
+
+    <main class="admin-main">
+      <section class="stats" aria-label="Resumo">
+        <article class="stat stat--date">
+          <h2 class="stat__label">Data do evento</h2>
+          <p class="stat__date">
+            <span class="stat__day" data-stat="day-month">—</span>
+            <span class="stat__year" data-stat="year"></span>
+          </p>
+          <p class="stat__time" data-stat="time"></p>
+        </article>
+        <article class="stat">
+          <h2 class="stat__label">Confirmações</h2>
+          <p class="stat__value" data-stat="confirmations">0</p>
+        </article>
+        <article class="stat">
+          <h2 class="stat__label">Total de pessoas</h2>
+          <p class="stat__value" data-stat="people">0</p>
+        </article>
+      </section>
+
+      <section class="card" aria-labelledby="settings-title">
+        <h2 class="card__title" id="settings-title">Configurações</h2>
+
+        <form class="settings" data-settings-form novalidate>
+          <div class="admin-field settings__wide">
+            <label class="admin-field__label" for="event-name">Nome do evento</label>
+            <input class="admin-field__input" id="event-name" name="event_name" type="text" required maxlength="120">
+          </div>
+
+          <div class="admin-field">
+            <label class="admin-field__label" for="event-date">Data</label>
+            <input class="admin-field__input" id="event-date" name="event_date" type="date" required>
+          </div>
+
+          <div class="admin-field">
+            <label class="admin-field__label" for="event-time">Horário</label>
+            <input class="admin-field__input" id="event-time" name="event_time" type="time" required>
+          </div>
+
+          <div class="admin-field settings__wide">
+            <label class="admin-field__label" for="location-name">Local</label>
+            <input class="admin-field__input" id="location-name" name="location_name" type="text" required maxlength="120">
+          </div>
+
+          <div class="admin-field settings__wide">
+            <label class="admin-field__label" for="location-address">Endereço</label>
+            <textarea class="admin-field__input admin-field__input--area" id="location-address" name="location_address"
+                      rows="2" required maxlength="300" aria-describedby="location-address-hint"></textarea>
+            <p class="admin-field__hint" id="location-address-hint">Use uma quebra de linha para separar rua e cidade.</p>
+          </div>
+
+          <div class="admin-field settings__wide">
+            <label class="admin-field__label" for="maps-url">Google Maps</label>
+            <input class="admin-field__input" id="maps-url" name="maps_url" type="url" inputmode="url"
+                   maxlength="600" placeholder="https://maps.app.goo.gl/..." aria-describedby="maps-url-hint">
+            <p class="admin-field__hint" id="maps-url-hint">Opcional. Sem link, o convite pesquisa o endereço no Google Maps.</p>
+          </div>
+
+          <div class="settings__footer settings__wide">
+            <p class="settings__status" data-settings-status role="status" aria-live="polite"></p>
+            <button class="btn-admin btn-admin--primary" type="submit" data-settings-submit>Salvar alterações</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="card" aria-labelledby="guests-title">
+        <div class="card__head">
+          <h2 class="card__title" id="guests-title">Confirmados</h2>
+          <label class="search">
+            <span class="visually-hidden">Buscar por nome</span>
+            <svg class="search__icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+              <circle cx="7" cy="7" r="4.5" fill="none" stroke="currentColor" stroke-width="1.2"/>
+              <path d="m10.5 10.5 3 3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+            </svg>
+            <input class="search__input" type="search" placeholder="Buscar por nome" maxlength="100" data-search>
+          </label>
+        </div>
+
+        <div class="table-wrap">
+          <table class="guests">
+            <thead>
+              <tr>
+                <th scope="col">Nome</th>
+                <th scope="col">Pessoas</th>
+                <th scope="col">Status</th>
+                <th scope="col">Data</th>
+                <th scope="col"><span class="visually-hidden">Ações</span></th>
+              </tr>
+            </thead>
+            <tbody data-guests-body></tbody>
+          </table>
+        </div>
+        <p class="empty" data-empty hidden></p>
+
+        <div class="export">
+          <button class="btn-admin btn-admin--primary" type="button" data-copy-whatsapp>Copiar lista para WhatsApp</button>
+          <button class="btn-admin btn-admin--outline" type="button" data-download-txt>Baixar lista .txt</button>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <dialog class="dialog" data-delete-dialog aria-labelledby="delete-title">
+    <form method="dialog">
+      <h2 class="dialog__title" id="delete-title">Excluir confirmação?</h2>
+      <p class="dialog__text">A confirmação de <strong data-delete-name></strong> será removida permanentemente.</p>
+      <div class="dialog__actions">
+        <button class="btn-admin btn-admin--quiet" value="cancel" autofocus>Cancelar</button>
+        <button class="btn-admin btn-admin--danger" value="confirm">Excluir</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div class="toast" data-toast role="status" aria-live="polite"></div>
+</body>
+</html>

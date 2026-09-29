@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#0c0b0a">
+  <title>Entrar · Painel do evento</title>
+  <link rel="icon" href="/assets/icons/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="/css/reset.css">
+  <link rel="stylesheet" href="/css/variables.css">
+  <link rel="stylesheet" href="/css/admin.css">
+  <script type="module" src="/js/admin-login.js"></script>
+</head>
+<body class="admin admin--login">
+  <main class="login">
+    <div class="login__card">
+      <p class="admin-eyebrow">Área restrita</p>
+      <h1 class="login__title">Painel do evento</h1>
+
+      <form class="login__form" data-login-form novalidate>
+        <div class="admin-field">
+          <label class="admin-field__label" for="login-email">E-mail</label>
+          <input class="admin-field__input" id="login-email" name="email" type="email"
+                 autocomplete="username" required maxlength="254" autofocus>
+        </div>
+
+        <div class="admin-field">
+          <label class="admin-field__label" for="login-password">Senha</label>
+          <input class="admin-field__input" id="login-password" name="password" type="password"
+                 autocomplete="current-password" required maxlength="200">
+        </div>
+
+        <p class="admin-error" data-login-error role="alert" hidden></p>
+
+        <button class="btn-admin btn-admin--primary btn-admin--block" type="submit" data-login-submit>Entrar</button>
+      </form>
+    </div>
+  </main>
+</body>
+</html>
