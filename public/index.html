@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Você é meu convidado</title>
+  <meta name="description" content="Um convite especial para uma noite de celebração.">
+  <meta name="theme-color" content="#050403">
+  <meta name="color-scheme" content="dark">
+
+  <!-- Pré-visualização no WhatsApp: troque pelo domínio final (a imagem precisa de URL absoluta). -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Você é meu convidado">
+  <meta property="og:description" content="Uma noite para celebrar.">
+  <meta property="og:image" content="/assets/images/profile.jpg">
+
+  <link rel="icon" href="/assets/icons/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Manrope:wght@300;400;500;600&display=swap">
+  <link rel="preload" as="image" href="/assets/images/profile.jpg" fetchpriority="high">
+
+  <link rel="stylesheet" href="/css/reset.css">
+  <link rel="stylesheet" href="/css/variables.css">
+  <link rel="stylesheet" href="/css/ambient.css">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/animations.css">
+  <noscript><link rel="stylesheet" href="/css/noscript.css"></noscript>
+
+  <script type="module" src="/js/main.js"></script>
+</head>
+<body>
+  <div class="ambient" aria-hidden="true">
+    <canvas class="ambient__liquid" data-ambient-canvas></canvas>
+    <div class="ambient__bokeh">
+      <span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span>
+      <span></span><span></span>
+    </div>
+    <div class="ambient__pane ambient__pane--1"></div>
+    <div class="ambient__pane ambient__pane--2"></div>
+    <div class="ambient__vignette"></div>
+    <div class="ambient__grain"></div>
+  </div>
+
+  <main>
+    <!-- 1. Quem está celebrando -->
+    <header class="hero">
+      <div class="hero__inner">
+        <p class="eyebrow" data-reveal>
+          <span class="eyebrow__text" data-text="eyebrow"></span>
+        </p>
+
+        <figure class="portrait" data-reveal="portrait">
+          <div class="portrait__halo" aria-hidden="true"></div>
+          <div class="portrait__orbit" aria-hidden="true"><span class="portrait__spark"></span></div>
+          <div class="portrait__frame">
+            <img class="portrait__img" src="/assets/images/profile.jpg" alt="Foto do aniversariante"
+                 width="1024" height="1024" loading="eager" fetchpriority="high" decoding="async"
+                 data-celebrant-photo>
+          </div>
+          <div class="portrait__ring" aria-hidden="true"></div>
+        </figure>
+
+        <h1 class="hero__name" data-reveal="1" data-celebrant="name"></h1>
+        <p class="hero__tagline" data-reveal="2" data-text="tagline"></p>
+        <p class="hero__date caps" data-reveal="3">
+          <span data-event="short_date"></span>
+        </p>
+      </div>
+      <span class="scroll-cue" aria-hidden="true"></span>
+    </header>
+
+    <!-- 2. O momento -->
+    <section class="chapter chapter--moment" aria-labelledby="moment-title">
+      <div class="chapter__inner">
+        <p class="kicker" data-reveal><span class="kicker__index">I</span><span class="kicker__text" data-text="momentKicker"></span></p>
+        <p class="moment__age" data-reveal="1" data-celebrant="age"></p>
+        <p class="moment__unit caps" data-reveal="2" data-text="ageLabel"></p>
+        <h2 class="moment__title" id="moment-title" data-reveal="3" data-text="momentTitle"></h2>
+        <p class="moment__text" data-reveal="4" data-text="momentText"></p>
+      </div>
+    </section>
+
+    <!-- 3. Quando será -->
+    <section class="chapter chapter--date" aria-labelledby="date-title">
+      <div class="chapter__inner">
+        <p class="kicker" data-reveal><span class="kicker__index">II</span><span class="kicker__text" data-text="dateKicker"></span></p>
+        <h2 class="visually-hidden" id="date-title">Data e horário</h2>
+
+        <time class="date" data-reveal="1" data-event-datetime>
+          <span class="date__weekday caps" data-event="weekday"></span>
+          <span class="date__day" data-event="day"></span>
+          <span class="date__month" data-event="month"></span>
+          <span class="date__year caps" data-event="year"></span>
+          <span class="date__rule" aria-hidden="true"></span>
+          <span class="date__time"><span class="date__time-prefix">às</span> <span data-event="time"></span></span>
+        </time>
+
+        <div class="countdown" data-reveal="2" data-countdown role="timer" aria-label="Tempo restante até a celebração">
+          <p class="countdown__caption caps" data-text="countdownCaption"></p>
+          <div class="countdown__units">
+            <div class="countdown__unit">
+              <span class="countdown__value" data-unit="days">00</span>
+              <span class="countdown__label" data-unit-label="days">dias</span>
+            </div>
+            <div class="countdown__unit">
+              <span class="countdown__value" data-unit="hours">00</span>
+              <span class="countdown__label" data-unit-label="hours">horas</span>
+            </div>
+            <div class="countdown__unit">
+              <span class="countdown__value" data-unit="minutes">00</span>
+              <span class="countdown__label" data-unit-label="minutes">minutos</span>
+            </div>
+            <div class="countdown__unit">
+              <span class="countdown__value" data-unit="seconds">00</span>
+              <span class="countdown__label" data-unit-label="seconds">segundos</span>
+            </div>
+          </div>
+          <p class="countdown__done" data-countdown-done data-text="countdownDone" hidden></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Onde será -->
+    <section class="chapter chapter--place" aria-labelledby="place-title">
+      <div class="chapter__inner">
+        <p class="kicker" data-reveal><span class="kicker__index">III</span><span class="kicker__text" data-text="placeKicker"></span></p>
+        <h2 class="place__name" id="place-title" data-reveal="1" data-event="location_name"></h2>
+        <address class="place__address" data-reveal="2" data-event="location_address"></address>
+        <p class="place__time caps" data-reveal="3">A partir das <span data-event="time"></span></p>
+        <div class="place__action" data-reveal="4">
+          <a class="btn btn--ghost" href="https://www.google.com/maps" target="_blank" rel="noopener noreferrer" data-maps-link>
+            <span>Abrir no mapa</span>
+            <svg class="btn__icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+              <path d="M5 11 11 5M6 5h5v5" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span class="visually-hidden">(abre em nova aba)</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Confirme sua presença -->
+    <section class="chapter chapter--rsvp" id="confirmar" aria-labelledby="rsvp-title">
+      <div class="chapter__inner">
+        <p class="kicker" data-reveal><span class="kicker__index">IV</span><span class="kicker__text" data-text="rsvpKicker"></span></p>
+        <h2 class="rsvp__title" id="rsvp-title" data-reveal="1" data-text="rsvpTitle"></h2>
+        <p class="rsvp__intro" data-reveal="2" data-text="rsvpIntro"></p>
+
+        <div class="panel" data-reveal="3">
+          <form class="rsvp__form" data-rsvp-form novalidate>
+            <div class="field">
+              <label class="field__label" for="rsvp-name">Nome completo</label>
+              <input class="field__input" id="rsvp-name" name="name" type="text"
+                     autocomplete="name" autocapitalize="words" spellcheck="false"
+                     required minlength="2" maxlength="100">
+            </div>
+
+            <div class="field">
+              <label class="field__label" for="rsvp-guests">Quantidade de pessoas</label>
+              <div class="stepper">
+                <button class="stepper__btn" type="button" data-step="-1" aria-label="Diminuir quantidade" aria-controls="rsvp-guests">
+                  <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 8h9" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+                </button>
+                <input class="stepper__input" id="rsvp-guests" name="guests_count" type="number"
+                       inputmode="numeric" min="1" max="10" step="1" value="1" required
+                       aria-describedby="rsvp-guests-hint">
+                <button class="stepper__btn" type="button" data-step="1" aria-label="Aumentar quantidade" aria-controls="rsvp-guests">
+                  <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 8h9M8 3.5v9" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+                </button>
+              </div>
+              <p class="field__hint" id="rsvp-guests-hint">Incluindo você.</p>
+            </div>
+
+            <p class="form-message" data-form-message role="alert" hidden></p>
+
+            <button class="btn btn--solid" type="submit" data-submit>
+              <span data-submit-label>Confirmar presença</span>
+            </button>
+          </form>
+
+          <div class="rsvp__success" data-rsvp-success tabindex="-1" hidden>
+            <svg class="check" viewBox="0 0 52 52" aria-hidden="true" focusable="false">
+              <circle class="check__circle" cx="26" cy="26" r="24"/>
+              <path class="check__mark" d="M16.5 26.5l6.5 6.5 12.5-14"/>
+            </svg>
+            <p class="rsvp__success-title">Presença confirmada.</p>
+            <p class="rsvp__success-text">Será um prazer celebrar esse momento com você.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. Encerramento -->
+    <section class="chapter chapter--closing" aria-label="Mensagem final">
+      <div class="chapter__inner">
+        <div class="seal" data-reveal aria-hidden="true"></div>
+        <p class="closing__message" data-reveal="1" data-text="closingMessage"></p>
+        <p class="closing__signature" data-reveal="2" data-celebrant="name"></p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p class="caps"><span data-event="event_name"></span></p>
+  </footer>
+</body>
+</html>
