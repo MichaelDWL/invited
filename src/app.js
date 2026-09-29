@@ -17,6 +17,9 @@ export function createApp({ staticDir } = {}) {
   app.use(securityHeaders);
 
   app.use('/api', noStore, express.json({ limit: '10kb' }));
+  app.get('/api/health', (req, res) => {
+    res.json({ status: 'ok', environment: process.env.VERCEL_ENV || process.env.NODE_ENV || 'development' });
+  });
   app.use('/api/event', eventRoutes);
   app.use('/api/rsvps', rsvpRoutes);
   app.use('/api/admin', adminRoutes);
