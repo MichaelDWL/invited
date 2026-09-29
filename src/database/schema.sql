@@ -33,3 +33,8 @@ CREATE INDEX IF NOT EXISTS rsvps_created_at_idx ON rsvps (created_at DESC);
 -- Bancos já criados com o limite antigo (50) passam a aceitar no máximo 20.
 ALTER TABLE rsvps DROP CONSTRAINT IF EXISTS rsvps_guests_count_check;
 ALTER TABLE rsvps ADD CONSTRAINT rsvps_guests_count_check CHECK (guests_count BETWEEN 1 AND 20);
+
+-- No Supabase, o schema public também fica exposto pela Data API. RLS sem políticas
+-- bloqueia esse acesso; o backend conecta como dono das tabelas e não é afetado.
+ALTER TABLE event_settings ENABLE ROW LEVEL SECURITY;
+ALTER TABLE rsvps ENABLE ROW LEVEL SECURITY;
