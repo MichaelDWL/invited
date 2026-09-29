@@ -1,0 +1,127 @@
+/*
+ * Fundo em camadas:
+ * 1. base escura com luz âmbar estática (fallback sem WebGL)
+ * 2. canvas líquido (js/ambient.js)
+ * 3. bokeh
+ * 4. painéis de vidro translúcidos
+ * 5. vinheta + grão
+ */
+
+.ambient {
+  position: fixed;
+  inset: 0 auto auto 0;
+  z-index: -1;
+  width: 100%;
+  height: 100vh;
+  height: 100lvh;
+  overflow: hidden;
+  pointer-events: none;
+  contain: strict;
+  background:
+    radial-gradient(60vmax 42vmax at 14% 6%, rgba(196, 124, 52, 0.2), transparent 70%),
+    radial-gradient(46vmax 38vmax at 92% 46%, rgba(222, 172, 104, 0.12), transparent 70%),
+    radial-gradient(70vmax 46vmax at 38% 104%, rgba(164, 98, 40, 0.16), transparent 70%),
+    linear-gradient(180deg, #0c0906 0%, var(--color-black) 55%, #070504 100%);
+}
+
+.ambient__liquid {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 2.4s var(--ease-out);
+}
+
+.ambient__liquid.is-ready {
+  opacity: 1;
+}
+
+/* Bokeh ------------------------------------------------------------ */
+
+.ambient__bokeh span {
+  position: absolute;
+  top: var(--y);
+  left: var(--x);
+  width: var(--s);
+  height: var(--s);
+  border-radius: 50%;
+  opacity: var(--o-min, 0.4);
+  background: radial-gradient(circle, rgba(255, 216, 160, 0.6) 0%, rgba(242, 178, 104, 0.24) 40%, rgba(242, 178, 104, 0) 70%);
+  animation:
+    bokeh-drift var(--d, 44s) var(--ease-in-out) infinite alternate,
+    bokeh-flicker var(--f, 10s) ease-in-out infinite;
+}
+
+/* Discos com borda — como bokeh real de lente */
+.ambient__bokeh span:nth-child(3n) {
+  background: radial-gradient(circle, rgba(255, 214, 156, 0.1) 0 56%, rgba(255, 222, 172, 0.15) 65%, rgba(255, 222, 172, 0) 71%);
+  filter: blur(1.5px);
+}
+
+.ambient__bokeh span:nth-child(4n) {
+  filter: blur(2px);
+}
+
+.ambient__bokeh span:nth-child(1)  { --x: 6%;  --y: 12%; --s: 74px;  --dx: 28px;  --dy: -18px; --d: 46s; --f: 11s; }
+.ambient__bokeh span:nth-child(2)  { --x: 78%; --y: 8%;  --s: 18px;  --dx: -16px; --dy: 22px;  --d: 38s; --f: 7s;  --o-max: 1; }
+.ambient__bokeh span:nth-child(3)  { --x: 84%; --y: 30%; --s: 78px;  --dx: -22px; --dy: 16px;  --d: 52s; --f: 13s; }
+.ambient__bokeh span:nth-child(4)  { --x: 90%; --y: 52%; --s: 42px;  --dx: -12px; --dy: -24px; --d: 41s; --f: 9s;  }
+.ambient__bokeh span:nth-child(5)  { --x: 70%; --y: 62%; --s: 12px;  --dx: 18px;  --dy: -14px; --d: 34s; --f: 6s;  --o-max: 1; }
+.ambient__bokeh span:nth-child(6)  { --x: 12%; --y: 70%; --s: 64px;  --dx: 20px;  --dy: -26px; --d: 49s; --f: 12s; }
+.ambient__bokeh span:nth-child(7)  { --x: 3%;  --y: 44%; --s: 22px;  --dx: 14px;  --dy: 18px;  --d: 37s; --f: 8s;  }
+.ambient__bokeh span:nth-child(8)  { --x: 26%; --y: 86%; --s: 30px;  --dx: -18px; --dy: -12px; --d: 43s; --f: 10s; }
+.ambient__bokeh span:nth-child(9)  { --x: 58%; --y: 90%; --s: 84px;  --dx: 16px;  --dy: -20px; --d: 55s; --f: 14s; }
+.ambient__bokeh span:nth-child(10) { --x: 94%; --y: 80%; --s: 16px;  --dx: -20px; --dy: -10px; --d: 36s; --f: 7s;  --o-max: 0.95; }
+.ambient__bokeh span:nth-child(11) { --x: 36%; --y: 4%;  --s: 10px;  --dx: 12px;  --dy: 16px;  --d: 33s; --f: 6s;  --o-max: 0.9; }
+.ambient__bokeh span:nth-child(12) { --x: 22%; --y: 28%; --s: 54px;  --dx: -14px; --dy: 20px;  --d: 47s; --f: 12s; }
+.ambient__bokeh span:nth-child(13) { --x: 64%; --y: 22%; --s: 8px;   --dx: -10px; --dy: 14px;  --d: 31s; --f: 5s;  --o-max: 0.85; }
+.ambient__bokeh span:nth-child(14) { --x: 46%; --y: 74%; --s: 20px;  --dx: 22px;  --dy: 12px;  --d: 40s; --f: 9s;  }
+
+/* Vidro líquido ------------------------------------------------------ */
+
+/* Lentes escuras sem borda definida: escondem parte das luzes e criam planos de profundidade. */
+.ambient__pane {
+  position: absolute;
+  border-radius: 46% 54% 58% 42% / 52% 44% 56% 48%;
+  background:
+    radial-gradient(closest-side at 38% 32%, rgba(255, 236, 204, 0.045), transparent 70%),
+    radial-gradient(closest-side, rgba(6, 5, 4, 0.42) 0%, rgba(6, 5, 4, 0.3) 55%, rgba(6, 5, 4, 0) 100%);
+  animation: pane-drift 70s var(--ease-in-out) infinite alternate;
+}
+
+.ambient__pane--1 {
+  top: -18vh;
+  right: -34vw;
+  width: max(88vw, 44rem);
+  height: max(70vh, 34rem);
+  rotate: -14deg;
+}
+
+.ambient__pane--2 {
+  bottom: -24vh;
+  left: -40vw;
+  width: max(96vw, 48rem);
+  height: max(64vh, 30rem);
+  rotate: 18deg;
+  animation-duration: 86s;
+  animation-direction: alternate-reverse;
+}
+
+/* Legibilidade e textura -------------------------------------------- */
+
+.ambient__vignette {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(120% 90% at 50% 38%, transparent 38%, rgba(0, 0, 0, 0.62) 100%),
+    linear-gradient(180deg, rgba(5, 4, 3, 0) 60%, rgba(5, 4, 3, 0.45) 100%);
+}
+
+.ambient__grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .6 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+}
