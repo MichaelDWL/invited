@@ -41,11 +41,18 @@ export function requirePersonName(value, { min, max }) {
 }
 
 export function requireInteger(value, label, { min, max }) {
-  const number = typeof value === 'string' && value.trim() !== '' ? Number(value) : value;
-  if (!Number.isInteger(number) || number < min || number > max) {
-    throw new ValidationError(`${label} deve ser um número entre ${min} e ${max}.`);
+  const invalid = () => {
+    throw new ValidationError(`${label} deve ser um número inteiro entre ${min} e ${max}.`);
+  };
+
+  if (typeof value === 'string') {
+    const text = value.trim();
+    if (!/^-?\d+$/.test(text)) invalid();
+    value = Number(text);
   }
-  return number;
+
+  if (!Number.isInteger(value) || value < min || value > max) invalid();
+  return value;
 }
 
 export function requireId(value) {

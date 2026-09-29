@@ -34,7 +34,7 @@ export function initRsvp(form, successPanel) {
   const submitLabel = form.querySelector('[data-submit-label]');
   const message = form.querySelector('[data-form-message]');
 
-  let maxGuests = Number(guestsInput.max) || 10;
+  let maxGuests = Number(guestsInput.max) || 20;
   let isSubmitting = false;
 
   function readGuests() {

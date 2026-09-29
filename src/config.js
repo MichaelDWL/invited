@@ -1,7 +1,7 @@
 export const isProduction = process.env.NODE_ENV === 'production';
 
 /** Máximo de pessoas por confirmação (inclui o próprio convidado). */
-export const RSVP_MAX_GUESTS = 10;
+export const RSVP_MAX_GUESTS = 20;
 
 /** Fuso do local do evento. A data/hora salva no banco é interpretada neste fuso. */
 export const EVENT_UTC_OFFSET = '-03:00';

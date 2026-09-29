@@ -20,7 +20,7 @@ ON CONFLICT (id) DO NOTHING;
 CREATE TABLE IF NOT EXISTS rsvps (
   id           SERIAL       PRIMARY KEY,
   name         VARCHAR(100) NOT NULL,
-  guests_count SMALLINT     NOT NULL CHECK (guests_count BETWEEN 1 AND 50),
+  guests_count SMALLINT     NOT NULL CHECK (guests_count BETWEEN 1 AND 20),
   status       VARCHAR(10)  NOT NULL DEFAULT 'confirmed' CHECK (status IN ('confirmed', 'declined')),
   created_at   TIMESTAMPTZ  NOT NULL DEFAULT NOW(),
   updated_at   TIMESTAMPTZ  NOT NULL DEFAULT NOW()
@@ -29,3 +29,7 @@ CREATE TABLE IF NOT EXISTS rsvps (
 -- Uma confirmação por nome: reenviar o formulário atualiza a quantidade em vez de duplicar.
 CREATE UNIQUE INDEX IF NOT EXISTS rsvps_name_unique_idx ON rsvps (LOWER(name));
 CREATE INDEX IF NOT EXISTS rsvps_created_at_idx ON rsvps (created_at DESC);
+
+-- Bancos já criados com o limite antigo (50) passam a aceitar no máximo 20.
+ALTER TABLE rsvps DROP CONSTRAINT IF EXISTS rsvps_guests_count_check;
+ALTER TABLE rsvps ADD CONSTRAINT rsvps_guests_count_check CHECK (guests_count BETWEEN 1 AND 20);
