@@ -1,0 +1,117 @@
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes breathe {
+  0%, 100% { opacity: 0.72; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.04); }
+}
+
+@keyframes scroll-cue {
+  0% { transform: translateY(-100%); }
+  70%, 100% { transform: translateY(260%); }
+}
+
+@keyframes bokeh-drift {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(var(--dx, 0), var(--dy, 0), 0); }
+}
+
+@keyframes bokeh-flicker {
+  0%, 100% { opacity: var(--o-min, 0.4); }
+  50% { opacity: var(--o-max, 0.85); }
+}
+
+@keyframes pane-drift {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to { transform: translate3d(-4vw, 3vh, 0) scale(1.05); }
+}
+
+@keyframes tick {
+  from { opacity: 0.2; transform: translateY(-0.16em); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes draw {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* Revelação progressiva ao rolar ---------------------------------------- */
+
+[data-reveal] {
+  transition:
+    opacity 1.6s var(--ease-out),
+    transform 1.6s var(--ease-out),
+    filter 1.6s var(--ease-out);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+[data-reveal]:not(.is-visible) {
+  opacity: 0;
+  transform: translate3d(0, 1.75rem, 0);
+  filter: blur(6px);
+}
+
+[data-reveal='1'] { --reveal-delay: 140ms; }
+[data-reveal='2'] { --reveal-delay: 280ms; }
+[data-reveal='3'] { --reveal-delay: 420ms; }
+[data-reveal='4'] { --reveal-delay: 560ms; }
+
+[data-reveal='portrait'] {
+  transition-duration: 2.4s;
+  --reveal-delay: 120ms;
+}
+
+[data-reveal='portrait']:not(.is-visible) {
+  transform: scale(0.94);
+  filter: blur(12px);
+}
+
+/* Dados do evento chegam da API: surgem suavemente. */
+[data-event]:not([data-reveal]) {
+  transition: opacity 1s var(--ease-out);
+}
+
+html:not(.event-ready) [data-event] {
+  opacity: 0;
+}
+
+.countdown__value.is-ticking {
+  animation: tick 0.6s var(--ease-out);
+}
+
+.countdown__done:not([hidden]) {
+  animation: fade-up 1.4s var(--ease-out) both;
+}
+
+/* Movimento reduzido ------------------------------------------------------ */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
+
+  [data-reveal]:not(.is-visible) {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+
+  .check__circle,
+  .check__mark {
+    stroke-dashoffset: 0;
+  }
+}

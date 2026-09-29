@@ -1,0 +1,10 @@
+[data-reveal]:not(.is-visible),
+html:not(.event-ready) [data-event] {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+
+.portrait__img {
+  opacity: 1;
+}

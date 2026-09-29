@@ -1,0 +1,40 @@
+:root {
+  /* Paleta */
+  --color-black: #050403;
+  --color-ink: #0a0806;
+  --color-graphite: #14110e;
+  --color-charcoal: #1f1a15;
+  --color-text: #f2eadd;
+  --color-text-soft: rgba(242, 234, 221, 0.74);
+  --color-text-muted: rgba(242, 234, 221, 0.56);
+  --color-gold: #c9a46b;
+  --color-gold-deep: #8f6a3a;
+  --color-champagne: #e6d1a8;
+  --color-amber: #d08a3c;
+  --color-line: rgba(201, 164, 107, 0.26);
+  --color-line-soft: rgba(201, 164, 107, 0.12);
+  --color-error: #eaa28e;
+
+  --gradient-gold-text: linear-gradient(178deg, #f7ebd2 0%, #e0c08b 34%, #b88c50 68%, #7a5a30 100%);
+  --gradient-name: linear-gradient(180deg, #fbf6ec 20%, #e4d0a8 100%);
+  --gradient-button: linear-gradient(135deg, #eedcb8 0%, #d2b07a 50%, #b8925a 100%);
+
+  /* Tipografia */
+  --font-serif: 'Cormorant Garamond', 'Cormorant', Georgia, 'Times New Roman', serif;
+  --font-sans: 'Manrope', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --tracking-caps: 0.38em;
+
+  /* Movimento */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* Layout */
+  --space-section: clamp(6.5rem, 19vh, 11rem);
+  --content-width: 34rem;
+  --radius-panel: 1.75rem;
+
+  /* Foto: ajuste o zoom/enquadramento ao trocar profile.jpg */
+  --portrait-size: min(clamp(13rem, 64vw, 22rem), 44vh);
+  --portrait-zoom: 1.08;
+  --portrait-focus: 50% 40%;
+}
