@@ -1,7 +1,7 @@
 import { adminApi } from './admin-api.js';
 import { buildGuestList, copyToClipboard, downloadText, summarize } from './admin-export.js';
 import { filterByName, renderTable } from './admin-table.js';
-import { describeDate } from './format.js';
+import { describeDate, todayIsoDate } from './format.js';
 
 const SETTINGS_FIELDS = ['event_name', 'event_date', 'event_time', 'location_name', 'location_address', 'maps_url'];
 
@@ -161,8 +161,7 @@ async function copyWhatsAppList() {
 }
 
 function downloadTxtList() {
-  const today = new Date().toISOString().slice(0, 10);
-  downloadText(buildGuestList(state.event, state.rsvps, { whatsapp: false }), `confirmacoes-${today}.txt`);
+  downloadText(buildGuestList(state.event, state.rsvps, { whatsapp: false }), `confirmacoes-${todayIsoDate()}.txt`);
 }
 
 /* Inicialização -------------------------------------------------------------- */
