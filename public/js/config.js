@@ -5,7 +5,7 @@
 export const INVITE = {
   celebrant: {
     name: " Douglas ",
-    age: "42",
+    age: "44",
     photoAlt: "Foto de douglas",
   },
 
