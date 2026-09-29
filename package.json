@@ -13,7 +13,7 @@
     "db:down": "docker compose down"
   },
   "engines": {
-    "node": ">=20.6"
+    "node": "24.x"
   },
   "dependencies": {
     "express": "^5.1.0",
