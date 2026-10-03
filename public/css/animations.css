@@ -22,6 +22,17 @@
   50% { opacity: var(--o-max, 0.85); }
 }
 
+@keyframes spark-float {
+  0% { opacity: 0; transform: translate3d(0, 0, 0); }
+  15%, 80% { opacity: var(--o, 0.7); }
+  100% { opacity: 0; transform: translate3d(var(--dx, 0), -32vh, 0); }
+}
+
+@keyframes glint-twinkle {
+  0%, 100% { opacity: 0.25; transform: scale(0.55); }
+  50% { opacity: 1; transform: scale(1); }
+}
+
 @keyframes pane-drift {
   from { transform: translate3d(0, 0, 0) scale(1); }
   to { transform: translate3d(-4vw, 3vh, 0) scale(1.05); }

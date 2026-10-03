@@ -1,9 +1,10 @@
 :root {
   /* Paleta */
-  --color-black: #050403;
-  --color-ink: #0a0806;
-  --color-graphite: #14110e;
-  --color-charcoal: #1f1a15;
+  --color-black: #0d0805;
+  --color-ink: #120c08;
+  --color-graphite: #1a120c;
+  --color-charcoal: #251a11;
+  --color-chocolate: #2e1d11;
   --color-text: #f2eadd;
   --color-text-soft: rgba(242, 234, 221, 0.74);
   --color-text-muted: rgba(242, 234, 221, 0.56);
@@ -11,12 +12,15 @@
   --color-gold-deep: #8f6a3a;
   --color-champagne: #e6d1a8;
   --color-amber: #d08a3c;
+  /* Dourado em dois níveis: champagne (acima) para texto e bordas; luz para brilhos e pontos. */
+  --color-glow: #f4bf6e;
+  --color-glow-core: #fff1d6;
   --color-line: rgba(201, 164, 107, 0.26);
   --color-line-soft: rgba(201, 164, 107, 0.12);
   --color-error: #eaa28e;
 
   --gradient-gold-text: linear-gradient(178deg, #f7ebd2 0%, #e0c08b 34%, #b88c50 68%, #7a5a30 100%);
-  --gradient-name: linear-gradient(180deg, #fbf6ec 20%, #e4d0a8 100%);
+  --gradient-name: linear-gradient(180deg, #fff9ee 12%, #f2dcb2 62%, #e2b878 100%);
   --gradient-button: linear-gradient(135deg, #eedcb8 0%, #d2b07a 50%, #b8925a 100%);
 
   /* Tipografia */

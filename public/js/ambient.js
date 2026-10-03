@@ -77,29 +77,37 @@ void main() {
 
   // Fontes de luz em coordenadas relativas à tela (0..1), com leve paralaxe na rolagem.
   float drift = uScroll * 0.35;
-  vec2 light1 = (vec2(0.18 + 0.06 * sin(t * 1.3), 0.86 + 0.04 * cos(t * 1.1) + drift) - 0.5) * aspect;
-  vec2 light2 = (vec2(0.88 + 0.05 * cos(t * 0.9), 0.52 + 0.08 * sin(t * 0.7) + drift * 0.6) - 0.5) * aspect;
-  vec2 light3 = (vec2(0.40 + 0.08 * sin(t * 0.6), 0.08 + 0.05 * cos(t * 0.8) + drift * 0.3) - 0.5) * aspect;
+  vec2 light1 = (vec2(0.16 + 0.10 * sin(t * 1.1), 0.84 + 0.06 * cos(t * 0.9) + drift) - 0.5) * aspect;
+  vec2 light2 = (vec2(0.88 + 0.08 * cos(t * 0.8), 0.50 + 0.12 * sin(t * 0.6) + drift * 0.6) - 0.5) * aspect;
+  vec2 light3 = (vec2(0.40 + 0.12 * sin(t * 0.5), 0.06 + 0.07 * cos(t * 0.7) + drift * 0.3) - 0.5) * aspect;
+  vec2 light4 = (vec2(0.50 + 0.06 * cos(t * 0.7), 0.64 + 0.04 * sin(t * 0.9) + drift * 0.8) - 0.5) * aspect;
+  vec2 light5 = (vec2(0.78 + 0.10 * sin(t * 0.4), 0.94 + 0.05 * cos(t * 0.6) + drift * 0.2) - 0.5) * aspect;
 
-  float light = glow(warped, light1, 0.62) * 0.95
-              + glow(warped, light2, 0.48) * 0.7
-              + glow(warped, light3, 0.66) * 0.55;
+  float light = glow(warped, light1, 0.70) * 1.0
+              + glow(warped, light2, 0.56) * 0.6
+              + glow(warped, light3, 0.74) * 0.6
+              + glow(warped, light4, 0.46) * 0.5
+              + glow(warped, light5, 0.52) * 0.55;
 
   float sheen = smoothstep(0.45, 0.9, surface);
   // Cristas finas onde a superfície "dobra" — reflexos de luz no líquido.
   float ridge = pow(1.0 - clamp(abs(surface - 0.6) * 5.0, 0.0, 1.0), 4.0);
 
-  vec3 amber = vec3(0.62, 0.38, 0.16);
-  vec3 champagne = vec3(0.95, 0.80, 0.56);
+  vec3 amber = vec3(0.70, 0.40, 0.15);
+  vec3 gold = vec3(1.0, 0.78, 0.46);
 
-  vec3 color = vec3(0.02, 0.016, 0.013);
-  color = mix(color, vec3(0.056, 0.044, 0.034), smoothstep(0.25, 0.8, surface));
-  color += amber * light * (0.2 + 0.85 * sheen);
-  color += champagne * light * pow(sheen, 2.5) * 0.5;
-  color += champagne * ridge * light * 0.22;
+  // Base chocolate/grafite quente, sem preto absoluto.
+  vec3 color = vec3(0.036, 0.022, 0.014);
+  color = mix(color, vec3(0.082, 0.052, 0.032), smoothstep(0.25, 0.8, surface));
+  color += amber * light * (0.26 + 0.9 * sheen);
+  color += gold * light * pow(sheen, 2.5) * 0.45;
+  color += gold * ridge * light * 0.24;
 
   float vignette = smoothstep(1.5, 0.25, length(p * vec2(0.85, 0.7)));
-  color *= 0.5 + 0.5 * vignette;
+  color *= 0.56 + 0.44 * vignette;
+
+  // Comprime só os realces: tons escuros ficam iguais, a luz não estoura.
+  color = 1.0 - exp(-color * 1.1);
 
   gl_FragColor = vec4(color, 1.0);
 }`;

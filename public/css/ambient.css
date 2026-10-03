@@ -1,10 +1,11 @@
 /*
  * Fundo em camadas:
- * 1. base escura com luz âmbar estática (fallback sem WebGL)
+ * 1. base chocolate com luz âmbar estática (fallback sem WebGL)
  * 2. canvas líquido (js/ambient.js)
  * 3. bokeh
- * 4. painéis de vidro translúcidos
- * 5. vinheta + grão
+ * 4. partículas de luz subindo devagar
+ * 5. painéis de vidro quente translúcidos
+ * 6. vinheta + grão
  */
 
 .ambient {
@@ -18,10 +19,10 @@
   pointer-events: none;
   contain: strict;
   background:
-    radial-gradient(60vmax 42vmax at 14% 6%, rgba(196, 124, 52, 0.2), transparent 70%),
-    radial-gradient(46vmax 38vmax at 92% 46%, rgba(222, 172, 104, 0.12), transparent 70%),
-    radial-gradient(70vmax 46vmax at 38% 104%, rgba(164, 98, 40, 0.16), transparent 70%),
-    linear-gradient(180deg, #0c0906 0%, var(--color-black) 55%, #070504 100%);
+    radial-gradient(70vmax 50vmax at 16% 8%, rgba(222, 146, 62, 0.3), transparent 70%),
+    radial-gradient(56vmax 44vmax at 90% 40%, rgba(240, 186, 108, 0.18), transparent 70%),
+    radial-gradient(80vmax 54vmax at 40% 108%, rgba(188, 112, 46, 0.26), transparent 70%),
+    linear-gradient(180deg, #1c120b 0%, #140d08 50%, #100a06 100%);
 }
 
 .ambient__liquid {
@@ -46,8 +47,8 @@
   width: var(--s);
   height: var(--s);
   border-radius: 50%;
-  opacity: var(--o-min, 0.4);
-  background: radial-gradient(circle, rgba(255, 216, 160, 0.6) 0%, rgba(242, 178, 104, 0.24) 40%, rgba(242, 178, 104, 0) 70%);
+  opacity: var(--o-min, 0.45);
+  background: radial-gradient(circle, rgba(255, 222, 168, 0.7) 0%, rgba(244, 176, 92, 0.28) 40%, rgba(244, 176, 92, 0) 70%);
   animation:
     bokeh-drift var(--d, 44s) var(--ease-in-out) infinite alternate,
     bokeh-flicker var(--f, 10s) ease-in-out infinite;
@@ -55,7 +56,7 @@
 
 /* Discos com borda — como bokeh real de lente */
 .ambient__bokeh span:nth-child(3n) {
-  background: radial-gradient(circle, rgba(255, 214, 156, 0.1) 0 56%, rgba(255, 222, 172, 0.15) 65%, rgba(255, 222, 172, 0) 71%);
+  background: radial-gradient(circle, rgba(255, 210, 146, 0.12) 0 56%, rgba(255, 220, 166, 0.14) 65%, rgba(255, 220, 166, 0) 71%);
   filter: blur(1.5px);
 }
 
@@ -78,15 +79,49 @@
 .ambient__bokeh span:nth-child(13) { --x: 64%; --y: 22%; --s: 8px;   --dx: -10px; --dy: 14px;  --d: 31s; --f: 5s;  --o-max: 0.85; }
 .ambient__bokeh span:nth-child(14) { --x: 46%; --y: 74%; --s: 20px;  --dx: 22px;  --dy: 12px;  --d: 40s; --f: 9s;  }
 
-/* Vidro líquido ------------------------------------------------------ */
+/* Partículas ------------------------------------------------------- */
 
-/* Lentes escuras sem borda definida: escondem parte das luzes e criam planos de profundidade. */
+/* Pontos de luz que sobem devagar, como brilho suspenso no ar. Só transform/opacity. */
+.ambient__sparks span {
+  position: absolute;
+  top: var(--y);
+  left: var(--x);
+  width: var(--s, 2px);
+  height: var(--s, 2px);
+  border-radius: 50%;
+  opacity: var(--o, 0.7);
+  background: var(--color-glow-core);
+  box-shadow: 0 0 6px 1px rgba(244, 191, 110, 0.75), 0 0 14px 3px rgba(244, 191, 110, 0.22);
+  animation: spark-float var(--d, 28s) linear infinite;
+  animation-delay: var(--delay, 0s);
+}
+
+.ambient__sparks span:nth-child(1)  { --x: 12%; --y: 78%; --s: 2px; --d: 26s; --delay: -4s;  --dx: 14px;  --o: 0.8; }
+.ambient__sparks span:nth-child(2)  { --x: 24%; --y: 46%; --s: 3px; --d: 34s; --delay: -18s; --dx: -10px; --o: 0.65; }
+.ambient__sparks span:nth-child(3)  { --x: 38%; --y: 88%; --s: 2px; --d: 30s; --delay: -9s;  --dx: 18px;  --o: 0.75; }
+.ambient__sparks span:nth-child(4)  { --x: 52%; --y: 62%; --s: 2px; --d: 38s; --delay: -25s; --dx: -16px; --o: 0.6; }
+.ambient__sparks span:nth-child(5)  { --x: 66%; --y: 84%; --s: 3px; --d: 29s; --delay: -2s;  --dx: 12px;  --o: 0.7; }
+.ambient__sparks span:nth-child(6)  { --x: 80%; --y: 56%; --s: 2px; --d: 33s; --delay: -14s; --dx: -12px; --o: 0.8; }
+.ambient__sparks span:nth-child(7)  { --x: 92%; --y: 72%; --s: 2px; --d: 27s; --delay: -21s; --dx: 10px;  --o: 0.6; }
+.ambient__sparks span:nth-child(8)  { --x: 6%;  --y: 32%; --s: 2px; --d: 36s; --delay: -7s;  --dx: 16px;  --o: 0.55; }
+.ambient__sparks span:nth-child(9)  { --x: 30%; --y: 20%; --s: 2px; --d: 31s; --delay: -28s; --dx: -14px; --o: 0.6; }
+.ambient__sparks span:nth-child(10) { --x: 72%; --y: 26%; --s: 3px; --d: 35s; --delay: -11s; --dx: 12px;  --o: 0.65; }
+.ambient__sparks span:nth-child(11) { --x: 86%; --y: 12%; --s: 2px; --d: 28s; --delay: -16s; --dx: -10px; --o: 0.55; }
+.ambient__sparks span:nth-child(12) { --x: 44%; --y: 36%; --s: 1.5px; --d: 40s; --delay: -30s; --dx: 8px; --o: 0.5; }
+.ambient__sparks span:nth-child(13) { --x: 58%; --y: 96%; --s: 2px; --d: 32s; --delay: -5s;  --dx: -18px; --o: 0.7; }
+.ambient__sparks span:nth-child(14) { --x: 18%; --y: 98%; --s: 3px; --d: 37s; --delay: -20s; --dx: 12px;  --o: 0.6; }
+.ambient__sparks span:nth-child(15) { --x: 96%; --y: 40%; --s: 1.5px; --d: 30s; --delay: -13s; --dx: -8px; --o: 0.55; }
+.ambient__sparks span:nth-child(16) { --x: 4%;  --y: 58%; --s: 2px; --d: 34s; --delay: -24s; --dx: 10px;  --o: 0.6; }
+
+/* Vidro quente ------------------------------------------------------- */
+
+/* Lentes translúcidas sem borda definida: um reflexo suave em cima, sombra quente embaixo. */
 .ambient__pane {
   position: absolute;
   border-radius: 46% 54% 58% 42% / 52% 44% 56% 48%;
   background:
-    radial-gradient(closest-side at 38% 32%, rgba(255, 236, 204, 0.045), transparent 70%),
-    radial-gradient(closest-side, rgba(6, 5, 4, 0.42) 0%, rgba(6, 5, 4, 0.3) 55%, rgba(6, 5, 4, 0) 100%);
+    radial-gradient(closest-side at 36% 30%, rgba(255, 226, 178, 0.075), transparent 70%),
+    radial-gradient(closest-side, rgba(22, 13, 7, 0.3) 0%, rgba(22, 13, 7, 0.18) 55%, rgba(22, 13, 7, 0) 100%);
   animation: pane-drift 70s var(--ease-in-out) infinite alternate;
 }
 
@@ -114,8 +149,8 @@
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(120% 90% at 50% 38%, transparent 38%, rgba(0, 0, 0, 0.62) 100%),
-    linear-gradient(180deg, rgba(5, 4, 3, 0) 60%, rgba(5, 4, 3, 0.45) 100%);
+    radial-gradient(120% 90% at 50% 38%, transparent 44%, rgba(10, 6, 3, 0.5) 100%),
+    linear-gradient(180deg, rgba(12, 7, 4, 0) 62%, rgba(12, 7, 4, 0.36) 100%);
 }
 
 .ambient__grain {
