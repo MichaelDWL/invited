@@ -10,7 +10,7 @@ export const INVITE = {
   },
 
   texts: {
-    eyebrow: "Você é meu convidado",
+    eyebrow: "Você está convidado",
     tagline: "Uma noite para celebrar.",
 
     momentKicker: "O momento",
@@ -38,8 +38,9 @@ export const INVITE = {
     day: "17",
     month: "Outubro",
     year: "2026",
-    time: "18h",
-    short_date: "17/10",
+    time: "19h",
+    long_date: "17 de outubro · 2026",
+    hour: "19h",
     location_name: "Minha casa",
     location_address: "Rua Maria cândida, 412, francelinos - Juatuba",
     event_name: "Aniversário",

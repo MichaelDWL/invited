@@ -37,12 +37,6 @@ export function formatLongDate(isoDate) {
   return `${day} de ${month} de ${year}`;
 }
 
-/** "24 · 10 · 2026" */
-export function formatDottedDate(isoDate) {
-  const { dayPadded, monthNumber, year } = describeDate(isoDate);
-  return `${dayPadded} · ${monthNumber} · ${year}`;
-}
-
 /** "20:00" → "20h" · "20:30" → "20h30" */
 export function formatHour(time) {
   const [hours, minutes] = time.split(':');

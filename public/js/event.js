@@ -1,5 +1,5 @@
 import { requestJson } from './http.js';
-import { describeDate, formatDottedDate } from './format.js';
+import { describeDate, formatHour } from './format.js';
 import { INVITE } from './config.js';
 
 const MAPS_SEARCH_URL = 'https://www.google.com/maps/search/?api=1&query=';
@@ -40,7 +40,8 @@ export function renderEvent(event) {
     month: `de ${date.month}`,
     year: date.year,
     time: event.event_time,
-    short_date: formatDottedDate(event.event_date),
+    long_date: `${date.day} de ${date.month} · ${date.year}`,
+    hour: formatHour(event.event_time),
     location_name: event.location_name,
     location_address: event.location_address,
     event_name: event.event_name,

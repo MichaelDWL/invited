@@ -103,35 +103,74 @@ main {
 
 .hero__name {
   max-width: 100%;
-  margin-top: clamp(2.25rem, 5.5vh, 3.25rem);
+  margin-top: clamp(2rem, 5vh, 3rem);
   font-family: var(--font-serif);
-  font-size: clamp(1.9rem, 8.4vw, 4.9rem);
+  font-size: clamp(2.6rem, 12.5vw, 5.6rem);
   font-weight: 300;
   line-height: 1.02;
-  letter-spacing: -0.005em;
+  letter-spacing: 0.005em;
   text-wrap: balance;
   color: var(--color-text);
   background: var(--gradient-name);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 22px rgba(244, 176, 92, 0.26));
 }
 
 .hero__tagline {
-  margin-top: 1rem;
+  margin-top: 0.85rem;
   font-family: var(--font-serif);
-  font-size: clamp(1.2rem, 4.6vw, 1.6rem);
+  font-size: clamp(1.3rem, 5vw, 1.75rem);
   font-style: italic;
   font-weight: 300;
-  color: var(--color-champagne);
+  color: #f0d39f;
+  text-shadow: 0 0 18px rgba(244, 176, 92, 0.3);
 }
 
+/* Composição de convite: dia da semana · data · horário. */
 .hero__date {
-  min-height: 1.2em;
-  margin-top: clamp(1.75rem, 4vh, 2.5rem);
-  font-size: 0.68rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.7rem;
+  min-height: 4.5rem;
+  margin-top: clamp(1.75rem, 4.5vh, 2.75rem);
   font-weight: 500;
-  color: var(--color-text-muted);
+}
+
+.hero__date-weekday {
+  font-size: 0.64rem;
+  color: var(--color-champagne);
+  opacity: 0.8;
+}
+
+.hero__date-day {
+  font-size: 0.8rem;
+  letter-spacing: 0.3em;
+  margin-right: -0.3em;
+  color: var(--color-text);
+}
+
+.hero__date-time {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  font-size: 0.72rem;
+  color: var(--color-glow);
+  text-shadow: 0 0 14px rgba(244, 191, 110, 0.45);
+}
+
+.hero__date-time::before,
+.hero__date-time::after {
+  content: '';
+  width: 1.5rem;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(244, 191, 110, 0.6));
+}
+
+.hero__date-time::after {
+  transform: scaleX(-1);
 }
 
 .scroll-cue {
@@ -164,33 +203,27 @@ main {
   aspect-ratio: 1;
 }
 
+/* Luz de cena atrás do retrato: mais forte no alto à esquerda, como uma luz quente de salão. */
 .portrait__halo {
   position: absolute;
-  inset: -42%;
+  inset: -48%;
   border-radius: 50%;
-  background: radial-gradient(closest-side, rgba(214, 156, 84, 0.26), rgba(214, 156, 84, 0.08) 48%, transparent 76%);
+  background:
+    radial-gradient(closest-side at 38% 36%, rgba(246, 178, 92, 0.3), transparent 62%),
+    radial-gradient(closest-side, rgba(226, 158, 80, 0.26), rgba(226, 158, 80, 0.09) 50%, transparent 78%);
   animation: breathe 10s ease-in-out infinite;
 }
 
-.portrait__orbit {
+.portrait__glints {
   position: absolute;
-  inset: -13%;
-  border: 1px solid var(--color-line-soft);
-  border-radius: 50%;
-  animation: spin 90s linear infinite;
+  inset: -16%;
 }
 
-.portrait__spark {
-  position: absolute;
-  top: 50%;
-  left: -2.5px;
-  width: 5px;
-  height: 5px;
-  margin-top: -2.5px;
-  border-radius: 50%;
-  background: #fff3dc;
-  box-shadow: 0 0 10px 2px rgba(240, 200, 140, 0.7), 0 0 26px 6px rgba(214, 156, 84, 0.35);
-}
+.portrait__glints .glint:nth-child(1) { top: 12%; left: 12%; --g: 24px; --t: 5.5s; --delay: -1s; }
+.portrait__glints .glint:nth-child(2) { top: 4%;  left: 76%; --g: 12px; --t: 4.2s; --delay: -3s; }
+.portrait__glints .glint:nth-child(3) { top: 60%; left: 97%; --g: 18px; --t: 6.4s; --delay: -2s; }
+.portrait__glints .glint:nth-child(4) { top: 88%; left: 20%; --g: 11px; --t: 4.8s; --delay: -4s; }
+.portrait__glints .glint:nth-child(5) { top: 42%; left: 1%;  --g: 9px;  --t: 3.8s; --delay: -0.5s; }
 
 .portrait__frame {
   position: absolute;
@@ -198,22 +231,61 @@ main {
   overflow: hidden;
   border-radius: 50%;
   isolation: isolate;
-  background: radial-gradient(circle at 50% 36%, #2b2219 0%, #0d0a07 72%);
+  background: radial-gradient(circle at 50% 36%, #3a2716 0%, #140d08 72%);
   box-shadow:
-    0 40px 90px -30px rgba(0, 0, 0, 0.95),
-    0 0 60px -6px rgba(214, 156, 84, 0.22);
+    0 36px 80px -32px rgba(12, 6, 2, 0.85),
+    0 0 50px -4px rgba(240, 168, 84, 0.34),
+    0 0 120px 6px rgba(214, 140, 60, 0.14);
 }
 
-/* Integra a foto à cena: vinheta nas bordas e leve calor na parte superior. */
+/* Tom âmbar suave sobre a foto, para ela receber a mesma luz do ambiente. */
+.portrait__frame::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(circle at 30% 22%, rgba(255, 186, 104, 0.5), rgba(214, 140, 60, 0.22) 60%);
+  mix-blend-mode: soft-light;
+}
+
+/* Integra a foto à cena: luz quente vindo do alto e bordas que se fundem ao fundo. */
 .portrait__frame::after {
   content: '';
   position: absolute;
   inset: 0;
+  z-index: 1;
   border-radius: inherit;
   pointer-events: none;
   background:
-    radial-gradient(circle at 50% 42%, transparent 56%, rgba(5, 4, 3, 0.5) 100%),
-    linear-gradient(180deg, rgba(214, 156, 84, 0.07) 0%, transparent 40%, rgba(5, 4, 3, 0.3) 100%);
+    radial-gradient(circle at 28% 16%, rgba(255, 210, 150, 0.16), transparent 46%),
+    radial-gradient(circle at 50% 44%, transparent 60%, rgba(24, 13, 6, 0.42) 100%),
+    linear-gradient(180deg, transparent 55%, rgba(20, 11, 5, 0.26) 100%);
+}
+
+/* Brilho em estrela: ponto central + reflexo em cruz, cintilando devagar. */
+.glint {
+  position: absolute;
+  width: var(--g, 12px);
+  height: var(--g, 12px);
+  margin: calc(var(--g, 12px) / -2) 0 0 calc(var(--g, 12px) / -2);
+  background: radial-gradient(circle, var(--color-glow-core) 0 8%, rgba(244, 191, 110, 0.55) 18%, transparent 46%);
+}
+
+.glint::before,
+.glint::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 232, 192, 0.9) 50%, transparent) center / 100% 1px no-repeat;
+  opacity: 0.55;
+  animation: glint-twinkle var(--t, 5s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+}
+
+.glint::after {
+  rotate: 90deg;
 }
 
 .portrait__img {
@@ -839,27 +911,11 @@ main {
   padding-bottom: clamp(5rem, 14vh, 8rem);
 }
 
-.seal {
+.seal.glint {
+  --g: 3.25rem;
+  --t: 6s;
   position: relative;
-  width: 3.25rem;
-  height: 3.25rem;
   margin: 0 auto clamp(2.25rem, 6vh, 3rem);
-  border: 1px solid var(--color-line);
-  border-radius: 50%;
-}
-
-.seal::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 4px;
-  height: 4px;
-  margin: -2px 0 0 -2px;
-  border-radius: 50%;
-  background: #fff3dc;
-  box-shadow: 0 0 12px 3px rgba(240, 200, 140, 0.6), 0 0 30px 8px rgba(214, 156, 84, 0.3);
-  animation: breathe 6s ease-in-out infinite;
 }
 
 .closing__message {

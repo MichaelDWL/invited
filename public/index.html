@@ -3,14 +3,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Você é meu convidado</title>
+  <title>Você está convidado</title>
   <meta name="description" content="Um convite especial para uma noite de celebração.">
-  <meta name="theme-color" content="#050403">
+  <meta name="theme-color" content="#120c08">
   <meta name="color-scheme" content="dark">
 
   <!-- Pré-visualização no WhatsApp: troque pelo domínio final (a imagem precisa de URL absoluta). -->
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Você é meu convidado">
+  <meta property="og:title" content="Você está convidado">
   <meta property="og:description" content="Uma noite para celebrar.">
   <meta property="og:image" content="/assets/images/profile.jpg">
 
@@ -38,6 +38,12 @@
       <span></span><span></span><span></span><span></span>
       <span></span><span></span>
     </div>
+    <div class="ambient__sparks">
+      <span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span>
+    </div>
     <div class="ambient__pane ambient__pane--1"></div>
     <div class="ambient__pane ambient__pane--2"></div>
     <div class="ambient__vignette"></div>
@@ -54,7 +60,10 @@
 
         <figure class="portrait" data-reveal="portrait">
           <div class="portrait__halo" aria-hidden="true"></div>
-          <div class="portrait__orbit" aria-hidden="true"><span class="portrait__spark"></span></div>
+          <div class="portrait__glints" aria-hidden="true">
+            <span class="glint"></span><span class="glint"></span><span class="glint"></span>
+            <span class="glint"></span><span class="glint"></span>
+          </div>
           <div class="portrait__frame">
             <img class="portrait__img" src="/assets/images/profile.jpg" alt="Foto do aniversariante"
                  width="1024" height="1024" loading="eager" fetchpriority="high" decoding="async"
@@ -65,8 +74,10 @@
 
         <h1 class="hero__name" data-reveal="1" data-celebrant="name"></h1>
         <p class="hero__tagline" data-reveal="2" data-text="tagline"></p>
-        <p class="hero__date caps" data-reveal="3">
-          <span data-event="short_date"></span>
+        <p class="hero__date" data-reveal="3">
+          <span class="hero__date-weekday caps" data-event="weekday"></span>
+          <span class="hero__date-day caps" data-event="long_date"></span>
+          <span class="hero__date-time caps" data-event="hour"></span>
         </p>
       </div>
       <span class="scroll-cue" aria-hidden="true"></span>
@@ -196,7 +207,7 @@
     <!-- 6. Encerramento -->
     <section class="chapter chapter--closing" aria-label="Mensagem final">
       <div class="chapter__inner">
-        <div class="seal" data-reveal aria-hidden="true"></div>
+        <div class="seal glint" data-reveal aria-hidden="true"></div>
         <p class="closing__message" data-reveal="1" data-text="closingMessage"></p>
         <p class="closing__signature" data-reveal="2" data-celebrant="name"></p>
       </div>
